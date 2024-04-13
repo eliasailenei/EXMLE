@@ -21,9 +21,9 @@ namespace EXMLENew
 {
     public partial class Login : Form
     {
-        string user, pass, keyPass ,key, serverCreds;
+        string user, pass, keyPass, key, serverCreds;
         bool isSuper;
-       public bool isShut { get; set; }
+        public bool isShut { get; set; }
         public Login()
         {
             InitializeComponent();
@@ -36,11 +36,20 @@ namespace EXMLENew
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.FirstUse)
+            {
+                Properties.Settings.Default.FirstUse = false;
+                Properties.Settings.Default.Save();
+                this.Hide();
+                Setup st = new Setup();
+                st.ShowDialog();
+                this.Show();
+            }
             if (isShut)
             {
                 this.Close();
             }
-            if (File.Exists("safeKey.txt"))
+            if (File.Exists("safeKey.txt") && !string.IsNullOrEmpty(File.ReadAllText("safeKey.txt")))
             {
                 key = File.ReadAllText("safeKey.txt");
             }
@@ -122,7 +131,7 @@ namespace EXMLENew
                 }
                 catch (Exception ex)
                 {
-                   return ex.ToString();
+                    return ex.ToString();
                 }
             }
         }
@@ -139,7 +148,7 @@ namespace EXMLENew
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Setup setup = new Setup();  
+            Setup setup = new Setup();
             setup.Show();
         }
 
@@ -150,8 +159,10 @@ namespace EXMLENew
             {
                 keyPass = userKey;
                 button1.Enabled = true;
+                File.WriteAllText("safeKey.txt", keyPass);
+                this.Close();
             }
-            
+
 
         }
         static string Decrypt(string encryptedData, string key, int keySize)
@@ -168,11 +179,12 @@ namespace EXMLENew
                         byte[] decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
                         return Encoding.UTF8.GetString(decryptedBytes);
                     }
-                } catch 
+                }
+                catch
                 {
                     return "errPass";
                 }
-                
+
             }
         }
         static byte[] GenerateValidKey(string key, int keySize)
@@ -185,12 +197,13 @@ namespace EXMLENew
                     Array.Resize(ref hash, keySize / 8);
                     return hash;
                 }
-            } catch
-            { 
+            }
+            catch
+            {
                 MessageBox.Show("Credentials invalid! Try again later!");
                 return null;
             }
-            
+
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

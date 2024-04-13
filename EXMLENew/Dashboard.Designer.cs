@@ -36,16 +36,17 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(36, 96);
+            this.button1.Location = new System.Drawing.Point(36, 83);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 46);
             this.button1.TabIndex = 0;
@@ -55,7 +56,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(173, 96);
+            this.button2.Location = new System.Drawing.Point(173, 83);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(117, 46);
             this.button2.TabIndex = 1;
@@ -65,7 +66,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(309, 96);
+            this.button3.Location = new System.Drawing.Point(309, 83);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(117, 46);
             this.button3.TabIndex = 2;
@@ -97,7 +98,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Yi Baiti", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(105, 60);
+            this.label2.Location = new System.Drawing.Point(105, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(245, 33);
             this.label2.TabIndex = 5;
@@ -108,48 +109,31 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Yi Baiti", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(105, 160);
+            this.label3.Location = new System.Drawing.Point(107, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(234, 33);
             this.label3.TabIndex = 6;
             this.label3.Text = "Setup Deployment";
             // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(36, 205);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(390, 162);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(36, 373);
+            this.button5.Location = new System.Drawing.Point(110, 225);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(117, 46);
             this.button5.TabIndex = 8;
-            this.button5.Text = "Start PXE";
+            this.button5.Text = "Use Ventoy to start PXE";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(173, 373);
+            this.button6.Location = new System.Drawing.Point(247, 225);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(117, 46);
             this.button6.TabIndex = 9;
             this.button6.Text = "Export to XML";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(309, 373);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(117, 46);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Broadcast settings";
-            this.button7.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
@@ -161,16 +145,47 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(10, 167);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(459, 23);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Note: all variables must not be null for smooth install!";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(34, 190);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(394, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Also, please place the XML where mainUI will launch from which is:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(121, 206);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(243, 16);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "X:\\Windows\\Systen32\\ (in the PE system)";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 450);
+            this.ClientSize = new System.Drawing.Size(477, 285);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button4);
@@ -200,10 +215,11 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
