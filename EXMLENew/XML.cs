@@ -357,7 +357,7 @@ namespace EXMLENew
             {
                 try
                 {
-                    connection.Open();
+                    connection.Open(); // sql
                     using (NpgsqlCommand selectCommand = new NpgsqlCommand(query, connection))
                     {
                         return selectCommand.ExecuteScalar();
