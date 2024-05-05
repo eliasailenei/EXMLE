@@ -34,12 +34,12 @@ namespace EXMLENew
 
             if (!isOnline)
             {
-                MessageBox.Show("Program will now only read from XML!");
+                MessageBox.Show("You just enabled Online Mode! This means that PortableISO will fetch the most latest data when applying the image. Click again to disable.");
                 isOnline = true;
             }
             else
             {
-                MessageBox.Show("You just enabled Online Mode! This means that PortableISO will fetch the most latest data when applying the image. Click again to disable.");
+                MessageBox.Show("Program will now only read from XML!");
                 isOnline = false;
             }
 
@@ -69,12 +69,12 @@ namespace EXMLENew
                 File.Delete(Path.Combine(location, "config.xml"));
             }
 
-            using (XmlWriter writer = XmlWriter.Create(Path.Combine(location, "config.xml"), new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = true }))
+            using (XmlWriter writer = XmlWriter.Create(Path.Combine(location, "config.xml"), new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = true })) // writing and reading a file
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("EXMLE");
                 writer.WriteStartElement("setupData");
-                writer.WriteElementString("isOnline", isOnline.ToString().ToLower() ?? error());
+                writer.WriteElementString("IsOnline", isOnline.ToString().ToLower() ?? error());
                 writer.WriteElementString("Username", username ?? error());
                 writer.WriteElementString("Password", accPass ?? error());
                 writer.WriteElementString("LoginKey", key ?? error());
@@ -159,7 +159,7 @@ namespace EXMLENew
             collectNinite();
             collectOSSel();
             collectOSSetup();
-            accPass = BCrypt.Net.BCrypt.HashPassword(loginHashedPassword);
+            accPass = BCrypt.Net.BCrypt.HashPassword(loginHashedPassword); // hashing
             // to find password, the key is the key used to define the servercreds e.g key=1122 pass=hello now key=5464 pass =1122
             encKey = Encrypt(keyPass,"unlock", 128);
         }
@@ -200,7 +200,7 @@ namespace EXMLENew
         {
             try
             {
-                object result = sqlCC("select p.DiskNo from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.DiskNo from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -225,7 +225,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.DomainCommand from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.DomainCommand from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -245,7 +245,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.OSUser from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.OSUser from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -261,7 +261,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.OSPassword from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.OSPassword from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -281,7 +281,7 @@ namespace EXMLENew
         {
             try
             {
-                object result = sqlCC("select p.osversion from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.osversion from preference p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -307,7 +307,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -322,7 +322,7 @@ namespace EXMLENew
             catch { }
             try
             {
-                object result = sqlCC("select p.oslanguage from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.oslanguage from preference p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
 
                 if (result != null)
                 {
@@ -342,7 +342,7 @@ namespace EXMLENew
         {
             try
             {
-                object input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
                 if (input != null)
                 {
                     string result = input.ToString();

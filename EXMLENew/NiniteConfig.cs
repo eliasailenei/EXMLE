@@ -75,7 +75,7 @@ namespace EXMLENew
         private void checkIfEmpty()
         {
             bool notNiniteEmpty = false;
-            string input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+            string input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
             if ( input != null)
             {
                 firstTime = false;
@@ -91,7 +91,7 @@ namespace EXMLENew
             {
                 firstTime= true;
             }
-            input = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+            input = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'");// cross table sql
             if (input != null)
             {
                 firstTime = false;
@@ -108,7 +108,7 @@ namespace EXMLENew
         }
         public void seperate(string inputs)
         {
-            MatchCollection matches = Regex.Matches(inputs, "'(.*?)'");
+            MatchCollection matches = Regex.Matches(inputs, "'(.*?)'"); // regex
             string[] extractedValues = new string[matches.Count];
             for (int i = 0; i < matches.Count; i++)
             {
@@ -184,7 +184,7 @@ namespace EXMLENew
                 dataBase.Columns.Add("Title");
                 dataBase.Columns.Add("Value");
                 dataBase.Columns.Add("SRC");
-                string[] source = File.ReadAllLines("EXPORT.txt");
+                string[] source = File.ReadAllLines("EXPORT.txt"); // writing and reading a file
                 foreach (string item in source)
                 {
                     DataRow newRow = dataBase.NewRow();
@@ -282,7 +282,7 @@ namespace EXMLENew
                                     {
                                         client.DownloadFile("https://static.vecteezy.com/system/resources/thumbnails/017/178/563/small/cross-check-icon-symbol-on-transparent-background-free-png.png", png);
                                     }
-                                    Image image = Image.FromFile(png);
+                                    Image image = Image.FromFile(png); // writing and reading a file
                                     imageList1.Images.Add(image);
                                 }
                             }
@@ -354,10 +354,10 @@ namespace EXMLENew
             string command = string.Empty;
             if (firstTime)
             {
-                command = $"insert into preference (id, niniteoptions) select u.id, '{escapedFinalResult}' from users u where u.username = '{username}'";
+                command = $"insert into preference (id, niniteoptions) select u.id, '{escapedFinalResult}' from users u where u.username = '{username}'"; // cross table sql
                 firstTime = false ;
             } else if (!firstTime) {
-                command = $"update preference set niniteoptions = '{escapedFinalResult}' where id in (select u.id from users u where u.username = '{username}')";
+                command = $"update preference set niniteoptions = '{escapedFinalResult}' where id in (select u.id from users u where u.username = '{username}')"; // cross table sql
             }
             sqlCC(command);
 

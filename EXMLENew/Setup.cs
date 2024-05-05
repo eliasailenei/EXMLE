@@ -146,11 +146,11 @@ namespace EXMLENew
         private void dropTable()
         {
             string[] commands = {
-        "ALTER TABLE preference DROP CONSTRAINT IF EXISTS preference_id_fkey",
-        "ALTER TABLE setuppref DROP CONSTRAINT IF EXISTS setuppref_id_fkey",
-        "DROP TABLE IF EXISTS users",
-        "DROP TABLE IF EXISTS preference",
-        "DROP TABLE IF EXISTS setuppref"
+        "ALTER TABLE preference DROP CONSTRAINT IF EXISTS preference_id_fkey", // non table sql
+        "ALTER TABLE setuppref DROP CONSTRAINT IF EXISTS setuppref_id_fkey",// non table sql
+        "DROP TABLE IF EXISTS users",// non table sql
+        "DROP TABLE IF EXISTS preference",// non table sql
+        "DROP TABLE IF EXISTS setuppref"// non table sql
     };
 
             foreach (string command in commands)
@@ -162,20 +162,20 @@ namespace EXMLENew
         private void createTables()
         {
             string[]  commands = new string[3];
-            commands[0] = "CREATE TABLE users (" +
+            commands[0] = "CREATE TABLE users (" +// non table sql
     "id SERIAL PRIMARY KEY," +
     "username VARCHAR(20)," +
     "password VARCHAR(60)," +
     "isSuper BOOLEAN" +
     ");" + Environment.NewLine;
-            commands[1] = "CREATE TABLE preference (" +
+            commands[1] = "CREATE TABLE preference (" +// non table sql
     "id INT REFERENCES users(id)," +
     "NiniteOptions VARCHAR(256)," +
     "OSVersion INT," +
     "OSRelease VARCHAR(128)," +
     "OSLanguage VARCHAR(32)" +
     ");" + Environment.NewLine;
-            commands[2] = "CREATE TABLE setuppref (" +
+            commands[2] = "CREATE TABLE setuppref (" +// non table sql
     "id INT REFERENCES users(id)," +
     "DiskNo INT," +
     "DomainCommand VARCHAR(128)," +

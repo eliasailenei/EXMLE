@@ -101,7 +101,7 @@ namespace EXMLENew
             firstTime = true;
             try
             {
-                object result = sqlCC("select p.DiskNo from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.DiskNo from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -131,7 +131,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.DomainCommand from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.DomainCommand from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -152,7 +152,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.isUsingSameLogin from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.isUsingSameLogin from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -174,7 +174,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.OSUser from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.OSUser from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -191,8 +191,8 @@ namespace EXMLENew
             catch { }
 
             try
-            {
-                object result = sqlCC("select p.OSPassword from setuppref p join users u on p.id = u.id where u.username = '" + username + "'");
+            { 
+                object result = sqlCC("select p.OSPassword from setuppref p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -215,7 +215,7 @@ namespace EXMLENew
             passenc = Encrypt(passPlain, user, 128);
             if (firstTime)
             {
-                sqlCC("INSERT INTO setuppref  (id, DiskNo, DomainCommand, isUsingSameLogin, OSUser, OSPassword) " +
+                sqlCC("INSERT INTO setuppref  (id, DiskNo, DomainCommand, isUsingSameLogin, OSUser, OSPassword) " + // cross table sql
                        $"SELECT u.id, '{disk}', '{domainCommandBuilder()}', '{isSame}', '{user}', '{passenc}' " +
                        $"FROM users u " +
                        $"WHERE u.username = '{username}'");
@@ -227,7 +227,7 @@ namespace EXMLENew
                       $", isUsingSameLogin = '{isSame}' " +
                       $", OSUser = '{user}' " +
                       $", OSPassword = '{passenc}' " +
-                      $"WHERE id IN (SELECT u.id FROM users u WHERE u.username = '{username}')");
+                      $"WHERE id IN (SELECT u.id FROM users u WHERE u.username = '{username}')"); // cross table sql
             }
             MessageBox.Show("Update done!");
         }

@@ -72,7 +72,7 @@ namespace EXMLENew
             bool notOSEmpty = false;
             try
             {
-                object result = sqlCC("select p.osversion from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.osversion from preference p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -104,7 +104,7 @@ namespace EXMLENew
 
             try
             {
-                object result = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.osrelease from preference p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -122,7 +122,7 @@ namespace EXMLENew
             catch { }
             try
             {
-                object result = sqlCC("select p.oslanguage from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object result = sqlCC("select p.oslanguage from preference p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
 
                 if (result != null)
                 {
@@ -140,7 +140,7 @@ namespace EXMLENew
             catch { }
             try
             {
-                object input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'");
+                object input = sqlCC("select p.niniteoptions from preference p join users u on p.id = u.id where u.username = '" + username + "'"); // cross table sql
                 if (input != null)
                 {
                     firstTime = false;
@@ -172,7 +172,7 @@ namespace EXMLENew
             {
                 client.DownloadFile("https://github.com/eliasailenei/MSWISO/releases/download/Release/Stable.zip", "MSWISO.zip");
             }
-            ZipFile.ExtractToDirectory("MSWISO.zip", "MSWISO");
+            ZipFile.ExtractToDirectory("MSWISO.zip", "MSWISO"); // writing and reading a file
             File.Delete("MSWISO.zip");
         }
         public void populateRelease(int ver)
@@ -188,7 +188,7 @@ namespace EXMLENew
         }
         public void getInput(int ver)
         {
-            string[] allEntries = File.ReadAllLines("output.txt");
+            string[] allEntries = File.ReadAllLines("output.txt"); // writing and reading output
             foreach (string release in allEntries)
             {
                 DataRow releaseRow = Windows.NewRow();

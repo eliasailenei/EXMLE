@@ -51,7 +51,7 @@ namespace EXMLENew
             }
             if (File.Exists("safeKey.txt") && !string.IsNullOrEmpty(File.ReadAllText("safeKey.txt")))
             {
-                key = File.ReadAllText("safeKey.txt");
+                key = File.ReadAllText("safeKey.txt"); // writing and reading from a file
             }
             else
             {
@@ -61,7 +61,7 @@ namespace EXMLENew
         }
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            pass = BCrypt.Net.BCrypt.HashPassword(textBox2.Text);
+            pass = BCrypt.Net.BCrypt.HashPassword(textBox2.Text); // hashing
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace EXMLENew
             string res = sqlCC("SELECT Password FROM Users WHERE Username = '" + user + "'");
             try
             {
-                if (res != null && BCrypt.Net.BCrypt.Verify(enteredPassword, res))
+                if (res != null && BCrypt.Net.BCrypt.Verify(enteredPassword, res))// hashing verify
                 {
                     string isSuperUser = sqlCC("select username from users where issuper = true and username = '" + user + "'");
                     if (isSuperUser == user)
@@ -117,7 +117,7 @@ namespace EXMLENew
                 MessageBox.Show("Can't validate password/ internal server error. Try again!");
             }
         }
-        private string sqlCC(string query)
+        private string sqlCC(string query)// user made algo
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(serverCreds))
             {

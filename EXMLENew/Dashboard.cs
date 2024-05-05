@@ -38,7 +38,7 @@ namespace EXMLENew
 
         private void button4_Click(object sender, EventArgs e)
         {
-            AdminPanel adminPanel = new AdminPanel();
+            AdminPanel adminPanel = new AdminPanel(); // simple oop
             adminPanel.serverCreds = serverCreds;
             adminPanel.currentUser = username;
             adminPanel.Show();
@@ -71,7 +71,7 @@ namespace EXMLENew
             }
             else if (pass != null)
             {
-                string command = $"UPDATE users SET password = '{BCrypt.Net.BCrypt.HashPassword(pass)}' WHERE username = '{username}'";
+                string command = $"UPDATE users SET password = '{BCrypt.Net.BCrypt.HashPassword(pass)}' WHERE username = '{username}'"; // hashing and single table sql
                 sqlCC(command);
                 MessageBox.Show("Password changed! Please log back in!");
                 closeForm();
@@ -100,7 +100,7 @@ namespace EXMLENew
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NiniteConfig ninite = new NiniteConfig();
+            NiniteConfig ninite = new NiniteConfig(); // simple oop
             ninite.serverConfig = serverCreds;
             ninite.username = username;
             ninite.Show();
@@ -109,7 +109,7 @@ namespace EXMLENew
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OSConfig os = new OSConfig();
+            OSConfig os = new OSConfig(); // simple oop
             os.serverConfig = serverCreds;
             os.username = username;
             os.Show();
@@ -117,7 +117,7 @@ namespace EXMLENew
 
         private void button3_Click(object sender, EventArgs e)
         {
-            SetupOS os = new SetupOS();
+            SetupOS os = new SetupOS(); // simple oop
             os.serverConfig = serverCreds;
             os.username = username;
             os.Show();
@@ -125,7 +125,7 @@ namespace EXMLENew
 
         private void button6_Click(object sender, EventArgs e)
         {
-            XML xML = new XML();
+            XML xML = new XML(); // simple oop
             xML.loginUsername = username;
             xML.loginHashedPassword = loginHashedPassword;
             xML.serverCreds = serverCreds;

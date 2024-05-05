@@ -29,29 +29,29 @@ namespace EXMLENew
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
-            userTable = popData($"SELECT * FROM users");
+            userTable = popData($"SELECT * FROM users"); // single table SQL 
            dataGridView1.DataSource = userTable;
-            prefTable = popData($"SELECT * FROM preference");
+            prefTable = popData($"SELECT * FROM preference");// single table SQL 
             dataGridView2.DataSource = prefTable;
-            setupTable = popData($"SELECT * FROM setuppref");
+            setupTable = popData($"SELECT * FROM setuppref");// single table SQL 
             dataGridView3.DataSource = setupTable;
         }
         private void refreshUserBase()
         {
             userTable.Clear();
-            userTable = popData($"SELECT * FROM users");
+            userTable = popData($"SELECT * FROM users");// single table SQL 
             dataGridView1.DataSource = userTable;
         }
         private void refreshPrefBase()
         {
             prefTable.Clear();
-            prefTable = popData($"SELECT * FROM preference");
+            prefTable = popData($"SELECT * FROM preference");// single table SQL 
             dataGridView2.DataSource = prefTable;
         }
         private void refreshSetupBase()
         {
             setupTable.Clear();
-            setupTable = popData($"SELECT * FROM setuppref");
+            setupTable = popData($"SELECT * FROM setuppref");// single table SQL 
             dataGridView3.DataSource = setupTable;
         }
         private DataTable popData(string commands)
@@ -75,7 +75,7 @@ namespace EXMLENew
         }
         private bool doesUserExist(string username)
         {
-            if (sqlCC("SELECT username FROM users WHERE username = '" + username + "'") != null)
+            if (sqlCC("SELECT username FROM users WHERE username = '" + username + "'") != null) // single table SQL 
             {
                 return true;
             } else
@@ -94,7 +94,7 @@ namespace EXMLENew
                     string pass = Interaction.InputBox("Please enter the password.", "Change Password");
                     if (pass != null)
                     {
-                        string command = $"UPDATE users SET password = '{BCrypt.Net.BCrypt.HashPassword(pass)}' WHERE username = '{user}'";
+                        string command = $"UPDATE users SET password = '{BCrypt.Net.BCrypt.HashPassword(pass)}' WHERE username = '{user}'";// single table SQL 
                         sqlCC(command);
                         if (invalid)
                         {
@@ -154,9 +154,9 @@ namespace EXMLENew
                     var res = MessageBox.Show("Are you sure you want to remove " + user + "? This cannot be undone.", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
-                        sqlCC("DELETE FROM setuppref WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");
-                        sqlCC("DELETE FROM preference WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");
-                        sqlCC("DELETE FROM users WHERE username = '" + user + "'");
+                        sqlCC("DELETE FROM setuppref WHERE id = (SELECT id FROM users WHERE username = '" + user + "')"); // cross reference SQL
+                        sqlCC("DELETE FROM preference WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");// cross reference SQL 
+                        sqlCC("DELETE FROM users WHERE username = '" + user + "'"); // single table sql
 
                     }
                 }
@@ -168,12 +168,12 @@ namespace EXMLENew
             {
                 MessageBox.Show("Check username, it was invalid or Admin (you cannot remove Admin or yourself whilst logged in)!");
             }
-            refreshUserBase();
+            refreshUserBase();// recursive algo
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string passEnc = BCrypt.Net.BCrypt.HashPassword("changeme");
+            string passEnc = BCrypt.Net.BCrypt.HashPassword("changeme"); // hashing
             string acUser = "placehold";
             string acSuper = "false";
             string user = Interaction.InputBox("Please enter the username you want to add.", "Create User");
@@ -190,7 +190,7 @@ namespace EXMLENew
                 acSuper="false";
             }
             if (acUser != "placehold") {
-                string userCreate = $"INSERT INTO users (username, password , issuper) VALUES ('{acUser}','{passEnc}',{acSuper})";
+                string userCreate = $"INSERT INTO users (username, password , issuper) VALUES ('{acUser}','{passEnc}',{acSuper})"; // single table sql
                 sqlCC(userCreate);
                 MessageBox.Show("User was created! Credentials:" + Environment.NewLine + "Username:" + acUser + Environment.NewLine + "Password:changeme" + Environment.NewLine + "Please ask " + acUser + " to change their password immediately!");
             } else
@@ -205,7 +205,7 @@ namespace EXMLENew
            var warning= MessageBox.Show("Are you sure you want to wipe Preference? This cannot be undone!", "DATA WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (warning == DialogResult.Yes)
             {
-                sqlCC("DELETE FROM preference");
+                sqlCC("DELETE FROM preference");// single table sql
             } else
             {
                 MessageBox.Show("No changes made!");
@@ -218,13 +218,13 @@ namespace EXMLENew
             var warning = MessageBox.Show("Are you sure you want to wipe Setup Preference? This cannot be undone!", "DATA WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (warning == DialogResult.Yes)
             {
-                sqlCC("DELETE FROM setuppref");
+                sqlCC("DELETE FROM setuppref");// single table sql
             }
             else
             {
                 MessageBox.Show("No changes made!");
             }
-            refreshSetupBase() ;
+            refreshSetupBase() ;// recursive algo
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -237,7 +237,7 @@ namespace EXMLENew
                     var res = MessageBox.Show("Are you sure you want to remove " + user + "'s data? This cannot be undone.", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
-                        sqlCC("DELETE FROM preference WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");
+                        sqlCC("DELETE FROM preference WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");// cross reference SQL
                     }
                 }
                 else
@@ -249,7 +249,7 @@ namespace EXMLENew
             {
                 MessageBox.Show("Check username, it was invalid or Admin (you cannot remove Admin or yourself whilst logged in)!");
             }
-            refreshPrefBase();
+            refreshPrefBase(); // recusive algo
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -262,7 +262,7 @@ namespace EXMLENew
                     var res = MessageBox.Show("Are you sure you want to remove " + user + "'s data? This cannot be undone.", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
-                        sqlCC("DELETE FROM setuppref WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");
+                        sqlCC("DELETE FROM setuppref WHERE id = (SELECT id FROM users WHERE username = '" + user + "')");// cross reference SQL
                     }
                 }
                 else
@@ -274,7 +274,7 @@ namespace EXMLENew
             {
                 MessageBox.Show("Check username, it was invalid or Admin (you cannot remove Admin or yourself whilst logged in)!");
             }
-            refreshSetupBase();
+            refreshSetupBase(); // recursive algo
         }
     }
 }
